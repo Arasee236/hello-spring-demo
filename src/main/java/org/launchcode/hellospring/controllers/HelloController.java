@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@ResponseBody
+//@ResponseBody
 @RequestMapping("hello")
 public class HelloController {
 
@@ -15,6 +15,7 @@ public class HelloController {
 //    }
 
     @GetMapping("goodbye")
+    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
@@ -24,6 +25,7 @@ public class HelloController {
 //        return "Hello, " + name + "!";
 //    }
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
     public String helloPost(@RequestParam String name, @RequestParam String language) {
         if(name == null){
         name = "world";
@@ -49,6 +51,7 @@ public class HelloController {
     }
 
     @GetMapping("{name}")
+    @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
         return "Hello , " + name + "!";
     }
@@ -56,21 +59,7 @@ public class HelloController {
     // /hello/form
     @GetMapping("form")
     public String helloForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action = '/hello' method = 'post'>" + // submit a request to /hello
-                "<input type = 'text' name = 'name' >" +
-                "<select name='language' id ='language'>" +
-                "<option value = 'English'> English </option>"+
-                "<option value = 'Tamil'> Tamil </option>"+
-                "<option value = 'Spanish'> Spanish </option>"+
-                "<option value = 'Hindi'> Hindi </option>"+
-                "<option value = 'French'> French </option>"+
-                "</select>" +
-                "<input type = 'submit' value = 'Greet Me!' >" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+        return "form";
     }
 
 
