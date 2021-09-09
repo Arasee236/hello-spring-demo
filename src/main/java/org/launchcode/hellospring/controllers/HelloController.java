@@ -1,18 +1,17 @@
 package org.launchcode.hellospring.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-//@ResponseBody
-@RequestMapping("hello")
-public class HelloController {
+import java.util.ArrayList;
+import java.util.List;
 
-//    @GetMapping
-//    @ResponseBody
-//    public String hello(){
-//        return "Hello, Spring!";
-//    }
+/**
+ * Created by Chris Bay
+ */
+@Controller
+public class HelloController {
 
     @GetMapping("goodbye")
     @ResponseBody
@@ -20,40 +19,18 @@ public class HelloController {
         return "Goodbye, Spring!";
     }
 
-//    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-//    public String helloWithQueryParam(@RequestParam String name) {
-//        return "Hello, " + name + "!";
-//    }
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    // Handles requests of the form /hello?name=LaunchCode
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "hello")
     @ResponseBody
-    public String helloPost(@RequestParam String name, @RequestParam String language) {
-        if(name == null){
-        name = "world";
-        }
-
-        return createMessage(name,language);
+    public String helloWithQueryParam(@RequestParam String name) {
+        return "Hello, " + name + "!";
     }
 
-    public static String createMessage(String aName,String aLanguage) {
-        String greeting = "";
-        if (aLanguage.equalsIgnoreCase("english")) {
-            greeting = "Hello";
-        } else if (aLanguage.equalsIgnoreCase("tamil")) {
-            greeting = "Vanakkam";
-        } else if (aLanguage.equalsIgnoreCase("hindi")) {
-            greeting = "Namaste";
-        } else if (aLanguage.equalsIgnoreCase("french")) {
-            greeting = "Bonjour";
-        } else if (aLanguage.equalsIgnoreCase("spanish")) {
-            greeting = "Hola";
-        }
-        return greeting + " , "+ aName + "!";
-    }
-
-    @GetMapping("{name}")
+   // Handles requests of the form /hello/LaunchCode
+    @GetMapping("hello/{name}")
     @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
-        return "Hello , " + name + "!";
+        return "Hello, " + name + "!";
     }
 
     // /hello/form
@@ -61,8 +38,5 @@ public class HelloController {
     public String helloForm() {
         return "form";
     }
-
-
-
 
 }
